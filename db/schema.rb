@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_19_191256) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_19_204652) do
+  create_table "contacts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts_users", id: false, force: :cascade do |t|
+    t.integer "contact_id"
+    t.integer "user_id"
+    t.index ["contact_id"], name: "index_contacts_users_on_contact_id"
+    t.index ["user_id"], name: "index_contacts_users_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "token"
@@ -25,6 +37,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_19_191256) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "onboarded", default: false, null: false
   end
 
   add_foreign_key "sessions", "users"
