@@ -21,7 +21,9 @@ class User < ApplicationRecord
       {
         facts:,
         catchup: catchup&.attributes&.merge(
-          with: catchup.users.where.not(id:).first
+          with: catchup.users.where.not(id:).first.attributes.merge({
+            facts: catchup.users.where.not(id:).first.facts
+          })
         )
       }
     )
