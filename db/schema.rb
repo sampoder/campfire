@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_19_204652) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_19_234054) do
+  create_table "catchups", force: :cascade do |t|
+    t.integer "contact_id", null: false
+    t.string "prompt", null: false
+    t.date "date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_catchups_on_contact_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -21,6 +30,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_19_204652) do
     t.integer "user_id"
     t.index ["contact_id"], name: "index_contacts_users_on_contact_id"
     t.index ["user_id"], name: "index_contacts_users_on_user_id"
+  end
+
+  create_table "facts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.string "question", null: false
+    t.string "answer", null: false
+    t.index ["user_id"], name: "index_facts_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "content", null: false
+    t.integer "user_id", null: false
+    t.integer "catchup_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["catchup_id"], name: "index_messages_on_catchup_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -40,5 +68,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_19_204652) do
     t.boolean "onboarded", default: false, null: false
   end
 
+  add_foreign_key "catchups", "contacts"
+  add_foreign_key "facts", "users"
+  add_foreign_key "messages", "catchups"
+  add_foreign_key "messages", "users"
   add_foreign_key "sessions", "users"
 end

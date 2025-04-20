@@ -1,4 +1,7 @@
 class ContactsController < ApplicationController
+  def index
+    render json: current_user.friends
+  end
   def import
     friends = current_user.friends
     new = []

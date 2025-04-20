@@ -1,9 +1,23 @@
 class UsersController < ApplicationController
-  def current
-    render json: current_user
+  def update
+    current_user.update(user_params.except(:questions))
+    params[:facts].each do |fact|
+      puts fact
+      f = Fact.find_or_create_by(user: current_user, question: fact[:question]) do |f|
+        f.answer = fact[:answer] 
+      end
+      f.update(answer: fact[:answer])
+    end
+    render json: current_user.decorated
   end
   
-  def import_contacts
-    puts params[:phone_numbers]
+  def current
+    render json: current_user.decorated
+  end
+  
+  private
+  
+  def user_params
+    params.permit(:name, :facts)
   end
 end

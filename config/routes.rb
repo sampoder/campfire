@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  get "users/current"
+  resources :users, only: [:update] do
+    collection do
+      get "current"
+    end
+  end
+  post "messages", to: "messages#create"
+  get "messages", to: "messages#index"
   post "contacts/import"
+  get "contacts", to: "contacts#index"
   post "sessions/create"
   post "sessions/authenticate"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

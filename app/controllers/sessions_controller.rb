@@ -8,6 +8,6 @@ class SessionsController < ApplicationController
   def authenticate
     session = Session.open.find_by(user_id: params[:user_id], short: params[:short])
     token = session.authenticate(params[:short].to_i)
-    render json: { user: session.user, token: }
+    render json: { user: session.user.decorated, token: }
   end
 end
