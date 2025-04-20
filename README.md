@@ -1,24 +1,7 @@
-# README
+# 🐮 🔥 Campfire
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Read more at https://devpost.com/software/campfire-qwprej.
 
-Things you may want to cover:
+![gallery (4)](https://github.com/user-attachments/assets/e54e119b-d441-4ca6-ba29-13acc3726bf2)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+I love cows.
